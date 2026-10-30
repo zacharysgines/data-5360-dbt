@@ -13,3 +13,12 @@ models:
     description: "Store Dimension"
   - name: fact_sales
     description: "Sales Fact"
+  - name: stg_employee_certifications
+    description: |
+      Staging model for employee certifications
+      Each record represents a certification given to an employee on a given date.
+  - name: fact_certification
+    description: |
+      Certificaiton Fact.
+      The grain of this table is employee + certification + date
+      Each record represents a certification given to an employee on a given date.
