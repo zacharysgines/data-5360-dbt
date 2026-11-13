@@ -9,16 +9,46 @@ models:
     description: "Employee Dimension"
   - name: oliver_dim_product
     description: "Product Dimension"
+    columns:
+      - name: product_key
+        tests:
+          - unique
   - name: oliver_dim_store
     description: "Store Dimension"
   - name: fact_sales
     description: "Sales Fact"
+    columns:
+      - name: product_key
+        tests:
+          - not_null
   - name: stg_employee_certifications
     description: |
       Staging model for employee certifications
       Each record represents a certification given to an employee on a given date.
+    columns:
+      - name: certification_name
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - "Conflict Resolution"
+                  - "Cash Handling and Security"
+                  - "Customer Service Excellence"
+                  - "Inventory Management"
+                  - "Leadership and Coaching"
+                  - "Point of Sale Operations"
+                  - "Product Knowledge Level 2"
+                  - "Strategic Retail Operations"
+                  - "Workplace Safety"
   - name: fact_certification
     description: |
       Certificaiton Fact.
       The grain of this table is employee + certification + date
       Each record represents a certification given to an employee on a given date.
+    columns:
+      - name: employee_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('oliver_dim_employee') # the model you want to compare to
+                field: employee_key # the field on the model you want to compare to
