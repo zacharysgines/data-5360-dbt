@@ -4,9 +4,17 @@ models:
   - name: dim_date
     description: "Date Dimension"
   - name: dim_email
+    columns:
+      - name: email_key
+        tests:
+          - unique
     description: "Email Dimension"
   - name: dim_event_type
     description: "Event Type Dimension"
+    columns:
+      - name: event_type_key
+        tests:
+          - not_null
   - name: dim_order
     description: "Order Dimension"
   - name: dim_product
@@ -17,5 +25,12 @@ models:
     description: "User Dimension"
   - name: fact_email_event
     description: "Email Event Fact"
+    columns:
+      - name: event_type_key
+        tests:
+          - relationships:
+              arguments: 
+                to: ref('dim_EventType') #the model you want to compare to 
+                field: event_type_key #field on the model you want to compare to 
   - name: fact_order_line
     description: "Order Line Fact"
