@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Date Dimension"
+  - name: dim_email
+    description: "Email Dimension"
+  - name: dim_event_type
+    description: "Event Type Dimension"
+  - name: dim_order
+    description: "Order Dimension"
+  - name: dim_product
+    description: "Product Dimension"
+  - name: dim_promotional_campaign
+    description: "Promotional Campaign Dimension"
+  - name: dim_user
+    description: "User Dimension"
+  - name: fact_email_event
+    description: "Email Event Fact"
+  - name: fact_order_line
+    description: "Order Line Fact"
