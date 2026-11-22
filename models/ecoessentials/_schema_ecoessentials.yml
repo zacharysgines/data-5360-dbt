@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Date Dimension"
+    columns:
+      - name: date_key
+        tests:
+          - unique
+  - name: dim_email
+    columns:
+      - name: email_key
+        tests:
+          - not_null
+    description: "Email Dimension"
+  - name: dim_event_type
+    description: "Event Type Dimension"
+    columns:
+      - name: event_type
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                - "CLICK"
+                - "OPEN"
+                - "SENT"
+  - name: dim_order
+    description: "Order Dimension"
+    columns:
+      - name: order_key
+        tests:
+          - not_null
+  - name: dim_product
+    description: "Product Dimension"
+    columns:
+      - name: product_key
+        tests:
+          - not_null
+  - name: dim_promotional_campaign
+    description: "Promotional Campaign Dimension"
+    columns:
+      - name: campaign_key
+        tests:
+          - not_null
+  - name: dim_user
+    description: "User Dimension"
+    columns:
+      - name: user_key
+        tests:
+          - not_null
+  - name: fact_email_event
+    description: "Email Event Fact"
+    columns:
+      - name: event_type_key
+        tests:
+          - relationships:
+              arguments: 
+                to: ref('dim_event_type') #the model you want to compare to 
+                field: event_type_key #field on the model you want to compare to 
+  - name: fact_order_line
+    description: "Order Line Fact"
+    columns:
+      - name: user_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_user')
+                field: user_key
